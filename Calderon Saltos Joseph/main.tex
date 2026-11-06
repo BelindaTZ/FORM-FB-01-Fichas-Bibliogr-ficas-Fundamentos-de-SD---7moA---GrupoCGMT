@@ -38,12 +38,12 @@ Carrera de Ingeniería en Software \quad | \quad Sistemas Distribuidos\\[4pt]
 \textbf{[1]}\enspace \fullcite{gulcan2025fuzzing}
 \campo{DOI verificado}
 DOI: \href{https://doi.org/10.1145/3763060}{10.1145/3763060}
-\campo{Resumen }
-En un sistema distribuido, algunos errores solo aparecen cuando los eventos ocurren en determinado orden. Y para buscarlos, esta investigación ocupa ModelFuzz, una técnica que orienta las pruebas con modelos formales escritos en TLA+. En vez de limitarse a ejecutar pruebas aleatorias, el método intenta explorar comportamientos distintos del sistema. Entre esos casos examinados están Etcd-raft y RedisRaft, dos implementaciones de Raft que según la evaluación presentada, se alcanzó una mayor cobertura de situaciones y se encontraron fallos más rápido que con las estrategias comparadas. La investigación deja en claro que un servicio puede funcionar normalmente y aun así tener errores pendientes de detectar.
+\campo{Resumen}
+En los sistemas distribuidos, algunos errores no aparecen siempre: dependen del orden en que ocurren ciertos eventos. Para encontrarlos, esta investigación utiliza ModelFuzz, una técnica que guía las pruebas con modelos formales escritos en TLA+. En lugar de limitarse a las pruebas aleatorias, busca explorar distintas situaciones del sistema. Para evaluar el método, se hicieron pruebas con Etcd-raft y RedisRaft, dos implementaciones del algoritmo Raft. Los resultados muestran que ModelFuzz permitió cubrir más situaciones y detectar fallos en menos tiempo que las estrategias comparadas. Así, un servicio puede parecer que funciona bien y aun así presentar errores bajo ciertas condiciones.
 \campo{Dato concreto de la fuente y ubicación}
-Los autores informan \textbf{12 errores antes desconocidos}, de los cuales \textbf{4} solo se detectaron mediante las pruebas guiadas por los modelos. \textit{Su ubicación en el texto esta: resumen e introducción, \cite[pp.~1--2]{gulcan2025fuzzing} (versión final ACM).}
+Los autores informan \textbf{12 errores antes desconocidos}, de los cuales \textbf{4} solo se detectaron mediante las pruebas guiadas por los modelos. \textit{Ubicación: resumen e introducción, \cite[pp.~1--2]{gulcan2025fuzzing} (versión final de ACM).}
 \campo{Nota personal: aporte al futuro informe}
-Lo que más me interesa de esta lectura es que un error puede pasar desapercibido hasta que ocurre una combinación particular de eventos. Ademas si más adelante pruebo etcd, quiero revisar qué estado mantiene el clúster después de un fallo y no limitarme a mostrar que los contenedores siguen encendidos. La investigación trabaja con Etcd-raft, que no equivale a estudiar todas las funciones de etcd.
+Lo que más me interesa de esta lectura es que un error puede pasar desapercibido hasta que ocurre una combinación particular de eventos. Además, si más adelante pruebo etcd, quiero revisar qué estado mantiene el clúster después de un fallo y no limitarme a mostrar que los contenedores siguen encendidos. La investigación trabaja con Etcd-raft, que no equivale a estudiar todas las funciones de etcd.
 
 \clearpage
 \ficha{2}{Elección de líder y rendimiento de Raft}
@@ -51,14 +51,12 @@ Lo que más me interesa de esta lectura es que un error puede pasar desapercibid
 \textbf{[2]}\enspace \fullcite{du2023election}
 \campo{DOI verificado}
 DOI: \href{https://doi.org/10.1002/cpe.7734}{10.1002/cpe.7734}
-\campo{Resumen }
-Un servidor puede seguir siendo el líder de un clúster Raft aunque responda con lentitud. Ese es el problema que aborda esta investigación. La propuesta cambia el mecanismo de elección para tener en cuenta el rendimiento de los servidores y dar prioridad a determinados candidatos. También prevé iniciar otra elección cuando las condiciones lo requieren. Para comprobar su propuesta, los investigadores se pusieron a analizar sus propiedades y realizaron experimentos con diferentes cantidades de servidores. En las condiciones probadas consiguieron mejorar las elecciones, aunque el mecanismo también añade trabajo de cálculo.
+\campo{Resumen}
+Un servidor puede seguir siendo el líder de un clúster Raft aunque responda con lentitud. Ese es el problema que aborda esta investigación. La propuesta modifica el mecanismo de elección para tener en cuenta el rendimiento de los servidores y dar prioridad a determinados candidatos. También contempla iniciar otra elección cuando las condiciones lo requieren. Para evaluarla, los investigadores analizaron sus propiedades e hicieron experimentos con diferentes cantidades de servidores. Al compararla con el Raft original, observaron menos repeticiones de elección por división del voto y un menor tiempo promedio de elección. Aun así, el nuevo mecanismo también requiere cálculos adicionales.
 \campo{Dato concreto de la fuente y ubicación}
-En el experimento con \textbf{15 servidores} y \textbf{200 elecciones}, los investigadores registraron \textbf{19 repeticiones de elección por división del voto} con Raft original; también informan una reducción aproximada del \textbf{10\%} en el tiempo promedio de elección con su propuesta.\textit{Ubicación: p.~2, \cite[p.~2]{du2023election},
-y sección 5.3, \cite[pp.~13--14]{du2023election},
-PDF de Wiley.}
+En el experimento con \textbf{15 servidores} y \textbf{200 elecciones}, los investigadores registraron \textbf{19 repeticiones de elección por división del voto} con Raft original; también informan una reducción aproximada del \textbf{10\%} en el tiempo promedio de elección con su propuesta. \textit{Ubicación: p.~2, \cite[p.~2]{du2023election}, y sección 5.3, \cite[pp.~13--14]{du2023election} (PDF de Wiley).}
 \campo{Nota personal: aporte al futuro informe}
-Me quedó más clara la diferencia entre tener un líder disponible y tener uno con buen rendimiento. Eso será útil cuando observe una elección de líder en Docker. También voy a tener que distinguir el funcionamiento normal de Raft de los cambios propuestos por los investigadores no sería correcto decir que etcd o Consul incluyen esas mejoras sin comprobarlo.
+Me quedó más clara la diferencia entre tener un líder disponible y tener uno con buen rendimiento. Eso será útil cuando observe una elección de líder en Docker. También voy a tener que distinguir el funcionamiento normal de Raft de los cambios propuestos por los investigadores. No sería correcto decir que etcd o Consul incluyen esas mejoras sin comprobarlo.
 
 \clearpage
 \ficha{3}{Verificación formal de protocolos de consenso}
@@ -66,12 +64,12 @@ Me quedó más clara la diferencia entre tener un líder disponible y tener uno 
 \textbf{[3]}\enspace \fullcite{feng2026verification}
 \campo{DOI verificado}
 DOI: \href{https://doi.org/10.1186/s42400-025-00501-2}{10.1186/s42400-025-00501-2}
-\campo{Resumen }
- Esta revisión reúne estudios que intentan responder a esta pregunta ¿cómo se comprueba que un protocolo de consenso funciona correctamente? mediante verificación formal y examina métodos como la comprobación de modelos y la demostración de teoremas, además de explicar qué propiedades se buscan y cuáles son las dificultades de estas técnicas, el texto organiza investigaciones sobre varias familias de protocolos entre ellas aparece Raft como un protocolo tolerante a fallos no bizantinos. Su aporte no consiste en probar un clúster concreto de etcd o Consul. Sino, ayuda a entender la diferencia entre observar un funcionamiento correcto durante una prueba y demostrar propiedades del protocolo.
+\campo{Resumen}
+La verificación formal permite comprobar propiedades de los protocolos de consenso sin depender únicamente de pruebas prácticas. Esta revisión reúne investigaciones que utilizan métodos como la comprobación de modelos y la demostración de teoremas. También explica qué propiedades buscan verificar y qué dificultades encuentran al aplicar esas técnicas. Entre los protocolos estudiados aparece Raft, que está diseñado para tolerar fallos no bizantinos. El trabajo no se centra en probar un clúster específico de etcd o Consul, sino en mostrar cómo se analizan las garantías de un protocolo. Así se entiende mejor la diferencia entre observar un resultado y comprobar formalmente ciertas propiedades.
 \campo{Dato concreto de la fuente y ubicación}
 La \textbf{Tabla 1} incluye a \textbf{Raft} entre los protocolos para los que se ha utilizado \textit{model checking} y enumera propiedades examinadas como \textbf{seguridad, consistencia y progreso} (\textit{safety, consistency, liveness}). \textit{Ubicación: Tabla 1, \cite[p.~5]{feng2026verification}, PDF de Springer Nature.}
 \campo{Nota personal: }
-La fuente sirvio para no confundir una prueba práctica con una demostración formal. Si detengo un nodo y el sistema sigue funcionando, habré observado un comportamiento concreto, pero no habré demostrado todas las propiedades de seguridad. Esa diferencia puede ayudarme a explicar mejor los límites del experimento del próximo informe.
+La fuente sirvió para no confundir una prueba práctica con una demostración formal. Si detengo un nodo y el sistema sigue funcionando, habré observado un comportamiento concreto, pero no habré demostrado todas las propiedades de seguridad. Esa diferencia puede ayudarme a explicar mejor los límites del experimento del próximo informe.
 
 \clearpage
 \ficha{4}{Medición de rendimiento en etcd y Hyperledger Fabric}
@@ -80,11 +78,11 @@ La fuente sirvio para no confundir una prueba práctica con una demostración fo
 \campo{DOI verificado}
 DOI: \href{https://doi.org/10.54254/2755-2721/27/20230173}{10.54254/2755-2721/27/20230173}
 \campo{Resumen}
-La medicion que tiene este trabajo es mediante etcd y Hyperledger Fabric, ambas relacionadas con mecanismos de consenso basados en Raft. Se examinan la cantidad de operaciones completadas, el tiempo de respuesta y la robustez durante las pruebas. Ya que los investigadores modificaron factores como el número de clientes, claves y conexiones, y distinguieron entre operaciones de lectura y escritura. En sus escenarios, etcd presentó mejores resultados de rendimiento que Hyperledger Fabric además, las lecturas superaron a las escrituras en ambas plataformas. Son resultados de configuraciones concretas, no una garantía de que ocurrirá lo mismo en todos los clústeres.
+Este trabajo compara el rendimiento de etcd y Hyperledger Fabric, dos plataformas evaluadas en relación con mecanismos de consenso basados en Raft. Para hacerlo, los investigadores midieron la cantidad de operaciones completadas, el tiempo de respuesta y la robustez durante las pruebas. También variaron factores como el número de clientes, claves y conexiones, y observaron diferencias entre lecturas y escrituras. En los escenarios examinados, etcd obtuvo mejores resultados de rendimiento que Hyperledger Fabric. Además, las lecturas rindieron mejor que las escrituras en ambas plataformas. Estos resultados corresponden a las configuraciones probadas y no significan que suceda lo mismo en cualquier clúster.
 \campo{Dato concreto de la fuente y ubicación}
 El estudio compara \textbf{dos plataformas} ---etcd y Hyperledger Fabric--- y concluye, para sus pruebas, que \textbf{las lecturas rindieron mejor que las escrituras} en ambas. \textit{Ubicación: resumen, \cite[p.~81]{xiao2023raft}; publicación completa, pp.~81--89.}
 \campo{Nota personal: }
-Aquí se trabaja con etcd, así que el ejemplo me resulta cercano a la opción que se esta considerando. Me parece útil ver que los resultados dependen de qué se mide y de cómo se configura la prueba. Cuando haga mi experimento, tendré que separar dos cosas: comprobar la continuidad del servicio y medir el rendimiento de sus operaciones.
+Aquí se trabaja con etcd, así que el ejemplo me resulta cercano a la opción que se está considerando. Me parece útil ver que los resultados dependen de qué se mide y de cómo se configura la prueba. Cuando haga mi experimento, tendré que separar dos cosas: comprobar la continuidad del servicio y medir el rendimiento de sus operaciones.
 
 \clearpage
 \ficha{5}{Cómo evaluar sistemas de coordinación distribuida}
@@ -97,7 +95,7 @@ Medir solo cuántas operaciones procesa un sistema no basta para compararlo con 
 \campo{Dato concreto de la fuente y ubicación}
 La \textbf{Tabla 5} distingue métricas de rendimiento, escalabilidad, disponibilidad y consistencia. Allí \textbf{YCSB} aparece asociado a rendimiento (\textit{throughput} y latencia), mientras que \textbf{Jepsen} incluye pruebas de fallos de nodos, particiones y comprobaciones de consistencia. \textit{Ubicación: Tabla 5, p.~11 de la versión gratuita en arXiv correspondiente a \cite{turkkan2026evaluate}; esta página no se atribuye a la edición final IEEE.}
 \campo{Nota personal:}
-Básicamente no basta con comprobar si un sistema distribuido funciona, también hay que observar cómo responde cuando ocurre algún problema. Esto me servirá para el próximo informe, porque podré analizar el comportamiento de etcd o Consul que tengo en mente usar y explicar sus resultados tomando en cuenta aspectos como la disponibilidad, la consistencia y la tolerancia a fallos.
+Básicamente no basta con comprobar si un sistema distribuido funciona, también hay que observar cómo responde cuando ocurre algún problema. Esto me servirá para el próximo informe, porque podré analizar el comportamiento de etcd o Consul que estoy considerando y explicar sus resultados tomando en cuenta aspectos como la disponibilidad, la consistencia y la tolerancia a fallos.
 
 \vfill
 \noindent\rule{\linewidth}{0.4pt}
