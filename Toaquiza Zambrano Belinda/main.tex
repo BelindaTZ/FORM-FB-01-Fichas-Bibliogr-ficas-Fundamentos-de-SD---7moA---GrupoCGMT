@@ -1,0 +1,187 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Codificación, idioma y tipografía ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}         
+\usepackage[spanish]{babel}
+\usepackage{microtype}
+\usepackage{csquotes}
+
+% ---------- Página ----------
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+% ---------- Bibliografía (biblatex + biber, estilo IEEE) ----------
+\usepackage[backend=biber, style=ieee]{biblatex}
+\addbibresource{referencias.bib}
+
+% ---------- Colores y enlaces ----------
+\definecolor{negro}{HTML}{000000}
+\usepackage[colorlinks=true, linkcolor=negro, urlcolor=negro, citecolor=negro]{hyperref}
+
+% ---------- Encabezado y pie ----------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\color{negro}FORM-FB-01 \textbullet{} Fichas bibliográficas}
+\rhead{\small\color{negro}Fundamentos de SD y Arquitecturas Distribuidas}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{negro}\leaders\hrule height \headrulewidth\hfill}}
+
+% ---------- Estilo de las fichas ----------
+\newtcolorbox{fichabox}[2]{
+  enhanced, breakable,
+  arc=3pt, boxrule=0.7pt,
+  colframe=negro, colback=white,
+  colbacktitle=negro, coltitle=white, fonttitle=\bfseries,
+  title={Ficha #1 \hfill #2},
+  left=9pt, right=9pt, top=7pt, bottom=7pt,
+  before skip=16pt, after skip=10pt
+}
+
+% Etiqueta de cada campo dentro de la ficha
+\newcommand{\campo}[1]{%
+  \par\medskip\noindent{\scshape\bfseries\color{negro}#1}\par\nopagebreak\smallskip}
+
+% Enlace al DOI
+\newcommand{\doilink}[1]{\href{https://doi.org/#1}{\nolinkurl{#1}}}
+
+% Texto por completar (bórralo cuando redactes tu parte)
+\newcommand{\pendiente}[1]{{\color{gray}\itshape [#1]}}
+
+% ---------- Portada ----------
+\title{FORM-FB-01 --- Fichas Bibliográficas\\[4pt]
+       \large Fundamentos de SD y Arquitecturas Distribuidas}
+\author{Belinda Betzabeth Toaquiza Zambrano}
+\date{Noviembre de 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introducción}
+Las cinco fuentes de este documento tratan sobre arquitecturas de microservicios desde distintos ángulos: rendimiento y escalabilidad, seguridad, identificación y descomposición de servicios a partir de un monolito, y migración. Las elegí para tener una base teórica sobre sus ventajas y sus limitaciones, y las usaré para respaldar las decisiones de diseño de TA-IND-01.
+
+% =====================================================================
+\section*{Fichas bibliográficas}
+
+% ---------------------------------------------------------------- 1
+\begin{fichabox}{1}{Rodrigues et al., 2025}
+\campo{Referencia (IEEE)}
+\fullcite{rodrigues2025}
+
+\campo{DOI verificado}
+\doilink{10.1016/j.jss.2025.112500}
+
+\campo{Resumen (100 palabras)}
+Esta revisión sistemática de la literatura analiza 29 estudios primarios sobre arquitecturas de microservicios, evidenciando que la evaluación del rendimiento y la escalabilidad se aborda de forma incompleta e incomparable. A pesar de los beneficios teóricos en mantenibilidad, la complejidad técnica y los costos operativos han llevado a diversas organizaciones a retornar hacia arquitecturas monolíticas. La literatura actual presenta un claro sesgo centrado en el escalado horizontal y vertical, desatendiendo la consistencia de datos y la comunicación asíncrona. Además, predominan las pruebas con cargas de trabajo ad hoc, haciendo imprescindible adoptar perfiles operativos representativos y definir benchmarks estandarizados en el área.
+
+\campo{Dato concreto}
+La principal contribución de este análisis fue la observación de que la mayoría de los estudios se centran en alternativas de despliegue y escalado para evaluar el rendimiento y la escalabilidad, mientras que, si bien se consideran variaciones en los elementos de orquestación de servicios, rara vez se evalúa su impacto. \quad
+(p.\ 15)
+
+\campo{Nota personal}
+El estudio resultó ser una fuente clave para entender con mayor claridad las limitaciones y la complejidad real de las arquitecturas de microservicios. Las consideraciones aprendidas en esta lectura me servirán de base para fundamentar mejor mi siguiente tarea.
+\end{fichabox}
+
+% ---------------------------------------------------------------- 2
+\begin{fichabox}{2}{Haindl et al., 2024}
+\campo{Referencia (IEEE)}
+\fullcite{haindl2024}
+
+\campo{DOI verificado}
+\doilink{10.1109/ACCESS.2024.3406500}
+
+\campo{Resumen (100 palabras)}
+Este artículo presenta una revisión sistemática sobre la seguridad en arquitecturas de microservicios. Destaca la adopción del principio Zero Trust, asumiendo que la red interna no es segura y que las amenazas pueden surgir desde adentro. Aunque la arquitectura distribuida dificulta la protección y monitoreo, esta amplía la superficie de ataque en lugar de dificultar las agresiones. Además, advierte sobre los riesgos de usar imágenes de contenedores no verificadas. Para mitigar esto, propone separar la gestión de red: el API Gateway resguarda la periferia, mientras que los proxies Sidecar aseguran cada microservicio individualmente sin recargar el código de la aplicación.
+
+\campo{Dato concreto}
+10 de 54 publicaciones (18,5\,\%) abordan
+la cuestión de los mecanismos de supervisión e intrusión inadecuados
+en MSA. Estas publicaciones examinan diversos aspectos de
+los mecanismos de intrusión, incluidos la detección, la respuesta y
+la prevención. \quad
+(p.\ 12)
+
+\campo{Nota personal}
+Este artículo ofrece una visión clara sobre cómo proteger sistemas basados en microservicios, considerando su complejidad y dinamismo. Es una guía clave para definir las medidas de seguridad indispensables en el diseño de arquitecturas distribuidas.
+\end{fichabox}
+
+% ---------------------------------------------------------------- 3
+\begin{fichabox}{3}{Oumoussa y Saidi, 2024}
+\campo{Referencia (IEEE)}
+\fullcite{oumoussa2024}
+
+\campo{DOI verificado}
+\doilink{10.1109/ACCESS.2024.3365079}
+
+\campo{Resumen (100 palabras)}
+Este artículo de revisión sistemática examina la evolución de la identificación de microservicios para la descomposición de sistemas monolíticos. Analiza enfoques de análisis estático sobre código fuente y dinámico sobre trazas de ejecución para definir límites de servicios cohesivos. Aunque emergen técnicas avanzadas de inteligencia artificial y redes neuronales, estas enfrentan limitaciones al interpretar intenciones humanas ambiguas y la semántica del dominio. Además, resalta que el 96\% de los estudios se concentran exclusivamente en Java, dificultando su aplicabilidad a lenguajes industriales como C o COBOL. Finalmente, señala la falta de métricas estandarizadas para validar migraciones empíricas en entornos de producción.
+
+\campo{Dato concreto}
+La mayoría (96\,\%) de los estudios empíricos sobre la identificación de microservicios se centran en sistemas escritos en el lenguaje de programación Java. \quad
+(p.\ 12)
+
+\campo{Nota personal}
+\textbf{Este artículo me resulta especialmente relevante porque pone en evidencia la enorme complejidad que conlleva adoptar una arquitectura de microservicios.} En particular, me llamó la atención la falta de métricas estandarizadas para evaluar el proceso de migración, lo que demuestra que aún es un campo en desarrollo. Considero que las visiones y desafíos planteados en este texto me serán de gran utilidad como referencia conceptual para futuros trabajos e investigaciones.
+\end{fichabox}
+
+% ---------------------------------------------------------------- 4
+\begin{fichabox}{4}{Ayas et al., 2023}
+\campo{Referencia (IEEE)}
+\fullcite{ayas2023}
+
+\campo{DOI verificado}
+\doilink{10.1007/s10664-023-10308-9}
+
+\campo{Resumen (100 palabras)}
+Este estudio analiza la migración a microservicios combinando 19 entrevistas y 215 discusiones de StackOverflow. Define dos modos de cambio paralelos e iterativos: el sistémico (largo plazo, liderado por directivos y arquitectos) y el técnico (corto plazo, ejecutado por desarrolladores en sprints). Para alinear a los equipos, se implementan un glosario común y representantes de negocio. Se utiliza una Shell API para evitar impactos visibles en los clientes. El mayor desafío radica en desacoplar bases de datos (usando réplicas de solo lectura), mientras la descomposición del frontend suele posponerse. Finalmente, gran parte del trabajo se destina a construir artefactos de soporte e infraestructura.
+
+\campo{Dato concreto}
+«Depende del tipo de producto, del público y de las limitaciones de tiempo. Si tuviera que desarrollar un sistema ahora para una pequeña empresa, optaría por una arquitectura monolítica. No hay ninguna razón de peso para empezar a construir mediante microservicios en el caso de esa empresa». - I2 \quad
+(p.\ 15)
+
+\campo{Nota personal}
+Este artículo me brindó una perspectiva integral sobre la transición de arquitecturas monolíticas a microservicios, destacando no solo la ejecución técnica sino también la gestión estratégica y el seguimiento organizacional. Considero que los marcos y patrones expuestos son un insumo altamente valioso para optimizar y estructurar la mejora de nuestros procesos.
+\end{fichabox}
+
+% ---------------------------------------------------------------- 5
+\begin{fichabox}{5}{Camilli et al., 2023}
+\campo{Referencia (IEEE)}
+\fullcite{camilli2023}
+
+\campo{DOI verificado}
+\doilink{10.1145/3583563}
+
+\campo{Resumen (100 palabras)}
+El artículo presenta Actor-Driven Decomposition (ADD), una metodología que complementa Domain-Driven Design (DDD) para diseñar microservicios más escalables. Mientras que DDD define límites basados en dominios de negocio e ignora el comportamiento real del usuario en tiempo de ejecución, ADD fragmenta servicios y bases de datos según los roles de los actores y sus patrones de uso. Incluye un marco de evaluación de escalabilidad multinivel mediante pruebas de carga automatizadas en niveles de sistema, componente y operación. Evaluado en casos de movilidad inteligente y comercio electrónico, ADD logra una modularización más fina y optimiza la asignación de recursos en la nube.
+
+\campo{Dato concreto}
+Para responder a nuestras preguntas de investigación (RQ1–RQ4), diseñamos y llevamos a cabo un conjunto de experimentos controlados en dos iteraciones. \quad
+(p.\ 25)
+
+\campo{Nota personal}
+La metodología ADD presenta una propuesta muy prometedora al complementar a DDD con patrones reales de uso de los actores. Considero sumamente provechoso el uso de estadísticas puras y métricas objetivas para definir y localizar los fallos en el sistema. Evaluar el rendimiento a nivel cuantitativo (en lugar de cualitativo) nos brinda herramientas claras y accionables para justificar decisiones arquitectónicas en el próximo trabajo.
+\end{fichabox}
+
+% =====================================================================
+\section*{Declaración de uso de inteligencia artificial}
+% IMPORTANTE: 
+\begin{tcolorbox}[enhanced, arc=3pt, boxrule=0.5pt, colframe=negro, colback=white]
+\textbf{Herramienta:} Claude (Anthropic).
+
+\textbf{Uso:} apoyo para localizar candidatas de fuentes de libre acceso, comprobar la existencia de los DOI, revisar el archivo \texttt{.bib} y preparar la plantilla \LaTeX{} de este documento.
+
+\textbf{Verificación:} abrí el DOI de cada fuente y comprobé autores, título, revista, volumen, número y páginas contra el PDF original; confirmé el cuartil de cada revista en SCImago.
+
+\textbf{Autoría:} los resúmenes, los datos concretos y las notas personales son de mi autoría.
+\end{tcolorbox}
+
+% =====================================================================
+\nocite{*}
+\printbibliography[title={Referencias}]
+
+\end{document}
