@@ -5,7 +5,7 @@
 
 # FORM-FB-01 — Fichas bibliográficas
 
-**Fundamentos de Sistemas Distribuidos y Arquitecturas Distribuidas**
+**APLICACIONES DISTRIBUIDAS**
 
 Universidad Técnica Estatal de Quevedo
 
@@ -73,7 +73,7 @@ Para reproducir el documento no se necesitan archivos auxiliares previos. Basta 
 
 <div align="center">
 
-**FORM-FB-01 · Sistemas Distribuidos**
+**FORM-FB-01 · aplicaciones distribuidas**
 
 Universidad Técnica Estatal de Quevedo
 
