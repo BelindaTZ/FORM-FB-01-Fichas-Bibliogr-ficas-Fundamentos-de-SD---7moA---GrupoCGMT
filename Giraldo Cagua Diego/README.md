@@ -14,14 +14,16 @@ El documento incluye cinco fichas de fuentes académicas sobre sistemas distribu
 
 ```text
 .
-├── main.tex
+├── FORM_FB_01___Fichas_Bibliográficas___Fundamentos_de_SD_y_Arquitecturas_Distribuidas (1)
+├── Fichas bibliográficas.tex
+├── Fichas Referencias.bib
 └── README.md
 ```
 
 El archivo principal del proyecto es:
 
 ```text
-main.tex
+Fichas bibliográficas.tex
 ```
 
 ## Requisitos previos
