@@ -1,0 +1,105 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage[hidelinks,breaklinks=true]{hyperref}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=ieee,sorting=none,giveninits=true,maxbibnames=99,hyperref=false]{biblatex}
+\addbibresource{referencias.bib}
+\setstretch{1.10}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small FORM-FB-01 \quad Fichas bibliográficas}
+\fancyhead[R]{\small Sistemas Distribuidos}
+\fancyfoot[C]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\ficha}[2]{\begin{center}\large\bfseries Ficha #1. #2\end{center}\vspace{0.4em}}
+\newcommand{\campo}[1]{\par\vspace{0.45em}\noindent\textbf{#1}\par}
+\begin{document}
+\begin{center}
+{\large\bfseries Universidad Técnica Estatal de Quevedo}\\[3pt]
+Facultad de Ciencias de la Computación y Diseño Digital\\
+Carrera de Ingeniería en Software \quad | \quad Sistemas Distribuidos\\[4pt]
+\textbf{FORM-FB-01 --- Fichas bibliográficas}\\
+\textbf{Estudiante:} Calderón Saltos Joseph Alexander
+\end{center}
+\vspace{0.6em}
+
+\ficha{1}{Pruebas de fallos en sistemas distribuidos}
+\campo{Referencia en formato IEEE (BibLaTeX)}
+\textbf{[1]}\enspace \fullcite{gulcan2025fuzzing}
+\campo{DOI verificado}
+DOI: \href{https://doi.org/10.1145/3763060}{10.1145/3763060}
+\campo{Resumen }
+En un sistema distribuido, algunos errores solo aparecen cuando los eventos ocurren en determinado orden. Y para buscarlos, esta investigación ocupa ModelFuzz, una técnica que orienta las pruebas con modelos formales escritos en TLA+. En vez de limitarse a ejecutar pruebas aleatorias, el método intenta explorar comportamientos distintos del sistema. Entre esos casos examinados están Etcd-raft y RedisRaft, dos implementaciones de Raft que según la evaluación presentada, se alcanzó una mayor cobertura de situaciones y se encontraron fallos más rápido que con las estrategias comparadas. La investigación deja en claro que un servicio puede funcionar normalmente y aun así tener errores pendientes de detectar.
+\campo{Dato concreto de la fuente y ubicación}
+Los autores informan \textbf{12 errores antes desconocidos}, de los cuales \textbf{4} solo se detectaron mediante las pruebas guiadas por los modelos. \textit{Su ubicación en el texto esta: resumen e introducción, \cite[pp.~1--2]{gulcan2025fuzzing} (versión final ACM).}
+\campo{Nota personal: aporte al futuro informe}
+Lo que más me interesa de esta lectura es que un error puede pasar desapercibido hasta que ocurre una combinación particular de eventos. Ademas si más adelante pruebo etcd, quiero revisar qué estado mantiene el clúster después de un fallo y no limitarme a mostrar que los contenedores siguen encendidos. La investigación trabaja con Etcd-raft, que no equivale a estudiar todas las funciones de etcd.
+
+\clearpage
+\ficha{2}{Elección de líder y rendimiento de Raft}
+\campo{Referencia en formato IEEE (BibLaTeX)}
+\textbf{[2]}\enspace \fullcite{du2023election}
+\campo{DOI verificado}
+DOI: \href{https://doi.org/10.1002/cpe.7734}{10.1002/cpe.7734}
+\campo{Resumen }
+Un servidor puede seguir siendo el líder de un clúster Raft aunque responda con lentitud. Ese es el problema que aborda esta investigación. La propuesta cambia el mecanismo de elección para tener en cuenta el rendimiento de los servidores y dar prioridad a determinados candidatos. También prevé iniciar otra elección cuando las condiciones lo requieren. Para comprobar su propuesta, los investigadores se pusieron a analizar sus propiedades y realizaron experimentos con diferentes cantidades de servidores. En las condiciones probadas consiguieron mejorar las elecciones, aunque el mecanismo también añade trabajo de cálculo.
+\campo{Dato concreto de la fuente y ubicación}
+En el experimento con \textbf{15 servidores} y \textbf{200 elecciones}, los investigadores registraron \textbf{19 repeticiones de elección por división del voto} con Raft original; también informan una reducción aproximada del \textbf{10\%} en el tiempo promedio de elección con su propuesta.\textit{Ubicación: p.~2, \cite[p.~2]{du2023election},
+y sección 5.3, \cite[pp.~13--14]{du2023election},
+PDF de Wiley.}
+\campo{Nota personal: aporte al futuro informe}
+Me quedó más clara la diferencia entre tener un líder disponible y tener uno con buen rendimiento. Eso será útil cuando observe una elección de líder en Docker. También voy a tener que distinguir el funcionamiento normal de Raft de los cambios propuestos por los investigadores no sería correcto decir que etcd o Consul incluyen esas mejoras sin comprobarlo.
+
+\clearpage
+\ficha{3}{Verificación formal de protocolos de consenso}
+\campo{Referencia en formato IEEE (BibLaTeX)}
+\textbf{[3]}\enspace \fullcite{feng2026verification}
+\campo{DOI verificado}
+DOI: \href{https://doi.org/10.1186/s42400-025-00501-2}{10.1186/s42400-025-00501-2}
+\campo{Resumen }
+ Esta revisión reúne estudios que intentan responder a esta pregunta ¿cómo se comprueba que un protocolo de consenso funciona correctamente? mediante verificación formal y examina métodos como la comprobación de modelos y la demostración de teoremas, además de explicar qué propiedades se buscan y cuáles son las dificultades de estas técnicas, el texto organiza investigaciones sobre varias familias de protocolos entre ellas aparece Raft como un protocolo tolerante a fallos no bizantinos. Su aporte no consiste en probar un clúster concreto de etcd o Consul. Sino, ayuda a entender la diferencia entre observar un funcionamiento correcto durante una prueba y demostrar propiedades del protocolo.
+\campo{Dato concreto de la fuente y ubicación}
+La \textbf{Tabla 1} incluye a \textbf{Raft} entre los protocolos para los que se ha utilizado \textit{model checking} y enumera propiedades examinadas como \textbf{seguridad, consistencia y progreso} (\textit{safety, consistency, liveness}). \textit{Ubicación: Tabla 1, \cite[p.~5]{feng2026verification}, PDF de Springer Nature.}
+\campo{Nota personal: }
+La fuente sirvio para no confundir una prueba práctica con una demostración formal. Si detengo un nodo y el sistema sigue funcionando, habré observado un comportamiento concreto, pero no habré demostrado todas las propiedades de seguridad. Esa diferencia puede ayudarme a explicar mejor los límites del experimento del próximo informe.
+
+\clearpage
+\ficha{4}{Medición de rendimiento en etcd y Hyperledger Fabric}
+\campo{Referencia en formato IEEE (BibLaTeX)}
+\textbf{[4]}\enspace \fullcite{xiao2023raft}
+\campo{DOI verificado}
+DOI: \href{https://doi.org/10.54254/2755-2721/27/20230173}{10.54254/2755-2721/27/20230173}
+\campo{Resumen}
+La medicion que tiene este trabajo es mediante etcd y Hyperledger Fabric, ambas relacionadas con mecanismos de consenso basados en Raft. Se examinan la cantidad de operaciones completadas, el tiempo de respuesta y la robustez durante las pruebas. Ya que los investigadores modificaron factores como el número de clientes, claves y conexiones, y distinguieron entre operaciones de lectura y escritura. En sus escenarios, etcd presentó mejores resultados de rendimiento que Hyperledger Fabric además, las lecturas superaron a las escrituras en ambas plataformas. Son resultados de configuraciones concretas, no una garantía de que ocurrirá lo mismo en todos los clústeres.
+\campo{Dato concreto de la fuente y ubicación}
+El estudio compara \textbf{dos plataformas} ---etcd y Hyperledger Fabric--- y concluye, para sus pruebas, que \textbf{las lecturas rindieron mejor que las escrituras} en ambas. \textit{Ubicación: resumen, \cite[p.~81]{xiao2023raft}; publicación completa, pp.~81--89.}
+\campo{Nota personal: }
+Aquí se trabaja con etcd, así que el ejemplo me resulta cercano a la opción que se esta considerando. Me parece útil ver que los resultados dependen de qué se mide y de cómo se configura la prueba. Cuando haga mi experimento, tendré que separar dos cosas: comprobar la continuidad del servicio y medir el rendimiento de sus operaciones.
+
+\clearpage
+\ficha{5}{Cómo evaluar sistemas de coordinación distribuida}
+\campo{Referencia en formato IEEE (BibLaTeX)}
+\textbf{[5]}\enspace \fullcite{turkkan2026evaluate}
+\campo{DOI verificado}
+DOI: \href{https://doi.org/10.1109/TPDS.2025.3631614}{10.1109/TPDS.2025.3631614}
+\campo{Resumen}
+Medir solo cuántas operaciones procesa un sistema no basta para compararlo con otro. Esta revisión plantea que también hay que examinar la consistencia, la disponibilidad y la respuesta ante fallos. Para mostrarlo, organizaron métodos, parámetros y herramientas utilizadas en la evaluación de sistemas de coordinación distribuida. Entre las herramientas comparadas aparecen YCSB y Jepsen, que no evalúan exactamente los mismos aspectos. Los autores señalan limitaciones de los bancos de pruebas disponibles y explican por qué una comparación puede ser incompleta si utiliza pocas métricas. Por eso este enfoque sirve para diseñar experimentos con objetivos claros y para interpretar correctamente lo observado.
+\campo{Dato concreto de la fuente y ubicación}
+La \textbf{Tabla 5} distingue métricas de rendimiento, escalabilidad, disponibilidad y consistencia. Allí \textbf{YCSB} aparece asociado a rendimiento (\textit{throughput} y latencia), mientras que \textbf{Jepsen} incluye pruebas de fallos de nodos, particiones y comprobaciones de consistencia. \textit{Ubicación: Tabla 5, p.~11 de la versión gratuita en arXiv correspondiente a \cite{turkkan2026evaluate}; esta página no se atribuye a la edición final IEEE.}
+\campo{Nota personal:}
+Básicamente no basta con comprobar si un sistema distribuido funciona, también hay que observar cómo responde cuando ocurre algún problema. Esto me servirá para el próximo informe, porque podré analizar el comportamiento de etcd o Consul que tengo en mente usar y explicar sus resultados tomando en cuenta aspectos como la disponibilidad, la consistencia y la tolerancia a fallos.
+
+\vfill
+\noindent\rule{\linewidth}{0.4pt}
+\textbf{Declaración de uso de inteligencia artificial.} Se utilizó ChatGPT como apoyo para organizar las fuentes, preparar los borradores de las fichas y escribir el código LaTeX. Para verificar la información, comprobé los DOI en las páginas de las publicaciones y contrasté los datos y las secciones citadas con los artículos originales.
+\end{document}
