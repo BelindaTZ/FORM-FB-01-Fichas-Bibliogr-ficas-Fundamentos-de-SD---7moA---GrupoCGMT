@@ -1,0 +1,149 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{referencias.bib}
+
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{parskip} % <-- ÚNICA VEZ AQUÍ, EN EL PREÁMBULO
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+\title{Fichas bibliográficas: fundamentos de sistemas distribuidos y arquitecturas distribuidas}
+\author{Manotoa Alava Carlos Alexander}
+\date{11 de Noviembre del 2026}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================
+\section*{FUENTE 1: MONOLITHIC VS. MICROSERVICE ARCHITECTURE: A PERFORMANCE AND SCALABILITY EVALUATION}
+
+\textbf{Referencia IEEE:} \fullcite{blinowski2022monolithic}
+
+Este artículo es una comparación del rendimiento y la escalabilidad que presentan las arquitecturas monolíticas frente a microservicios. El problema es que pequeñas empresas migran a microservicios esperando beneficios similares a lo que reportan las grades empresas tecnológicas, pero para sistemas sin miles de usuarios concurrentes y escalabilidad vertical, estos beneficios no han sido investigados a profundidad. El método consiste en implementar una aplicación web referencial en 4 versiones (Monolito vs microservicios y Java vs C\#) y realizar experimentos controlados en un entorno local, en Azure Spring Cloud y en Azure App Service, usando JMeter.
+
+Los hallazgos clave son:
+
+\begin{itemize}
+    \item En una sola máquina monolito rinde mejor
+    \item El escalado vertical es más rentable que el horizontal en Azure
+    \item Escalar más allá de ciertos números de instancias degrada el rendimiento
+    \item La tecnología de implementación no afecta notablemente la escalabilidad.
+\end{itemize}
+
+En conclusión, el artículo muestra que los microservicios no son la mejor opción para todos los contextos.
+
+\textbf{Dato concreto:} En la sección V.Results. A. Local Environment, el estudio reporta que monolito fue capaz de manejar en promedio más del doble de solicitudes por segundo que la versión de microservicios en .NET para el servicio de City, y 1.37 veces más en Java.
+
+\textbf{Nota personal:} Esta fuente permite comprender que la decisión entre monolito y microservicios depende del contexto, para sistemas pequeños sin miles de usuarios concurrentes, un monolito con escalabilidad vertical puede ser más eficiente y económico que migrar a microservicios. La usaré en la sección de análisis de arquitectura de TA-IND-01 para justificar que la elección entre monolítico y microservicios debe tomarse en el contexto y mediciones reales, no en tendencias o popularidad.
+
+% ============================================================
+\section*{FUENTE 2: DEPLOYMENT AND COMMUNICATION PATTERNS IN MICROSERVICE ARCHITECTURES: A SYSTEMATIC LITERATURE REVIEW}
+
+\textbf{Referencia IEEE:} \fullcite{aksakalli2021deployment}
+
+Esta fuente revisa la necesidad de identificar y describir los diferentes enfoques de despliegue y patrones de comunicación empleados en arquitecturas de microservicios, así como los problemas encontrados y sus resoluciones. Para ello se realizó una revisión sistemática de literatura con protocolo de Kitchenham. La fuente revisa 239 artículos y selecciona 38 artículos mediante criterios de inclusión/exclusión y snowballing. Los resultados identifican tres enfoques de despliegue:
+
+\begin{itemize}
+    \item Serverless
+    \item Instancia de servicio por VM
+    \item Instancia de servicio por contenedor
+\end{itemize}
+
+También identifican siete patrones de comunicación:
+
+\begin{itemize}
+    \item Síncrona
+    \item Publish/subscribe
+    \item Combinación HTTP y cola de mensajes
+    \item Middleware orientado a mensajes
+    \item Asíncrona
+    \item Punto a punto
+    \item Protocolos binarios
+\end{itemize}
+
+Además, también reporta ocho retos de despliegue, seite de comunicación y nueve direcciones de investigación.
+
+\textbf{Dato concreto:} Se revisaron 239 artículos de los cuales se seleccionaron 38. Asimismo, se identifican tres tipos de enfoques de despliegue y siete patrones de comificación.
+
+\textbf{Nota personal:} Esta fuente me ayuda a comprender que no basta con distribuir un sistema grande; la forma en que cada uno se instala y comunica con los otros son decisiones claves para que el sistema funcione correctamente. En TA-IND-01 la usaré en la sección de Arquitectura y Diseño para justificar la selección de contenedores y patrones de comunicación según los requisitos, y para revisar temas como costos de despliegue, tolerancia a fallos y balanceo de cargas.
+
+% ============================================================
+\section*{FUENTE 3: CONTAINERIZED MICROSERVICES: A SURVEY OF RESOURCE MANAGEMENT FRAMEWORKS}
+
+\textbf{Referencia IEEE:} \fullcite{alqassem2024containerized}
+
+Este artículo aborda el problema de la gestión eficiente de recursos en arquitecturas de microservicios contenerizados en la nube, donde la asignación dinámica, el cumplimiento de los SLA y el consumo energético son difíciles de optimizar. Para entender cómo se manejan los recursos, se seleccionaron 65 artículos y se clasificaron en tres tipos:
+
+\begin{itemize}
+    \item Reactivos: Los que responden en tiempo real.
+    \item Predictivos: Los que buscan anticiparse al futuro
+    \item Híbridos: Los que combinan ambos métodos
+\end{itemize}
+
+En los resultados se observa que los tipos reactivos son los más usados, mientras que los predictivos e híbridos no son tan frecuentes. Además, el artículo destaca la importancia de cumplir y simplificar los acuerdos de calidad del servicio (SLA) y de compartir recursos entre microservicios según la carga de trabajo. La conclusión es que hacen falta soluciones más seguras y robustas que puedan soportar el flujo de trabajo real en una empresa.
+
+\textbf{Dato concreto:} La tabla IV de la página 16, indica que los enfoques reactivos son los más adoptados con un 57,69\%, frente a los predictivos con un 30,7\% e híbridos con un 11,5\%.
+
+\textbf{Nota personal:} Esta fuente ayuda a comprender que la gestión contenerizada exige decidir entre un escalado reactivo, predictivo o híbrido, y equilibrar SLA, costos y energía. La usaré en TA-IND-01, en la sección de ``despliegue y operaciones'', para justificar una estrategia de escalado.
+
+% ============================================================
+\section*{FUENTE 4: VISUALIZING ANTI-PATTERNS IN MICROSERVICES AT RUNTIME: A SYSTEMATIC MAPPING STUDY}
+
+\textbf{Referencia IEEE:} \fullcite{parker2023visualizing}
+
+El estudio aborda la dificultad de detectar y visualizar antipatrones en microservicios desde una perspectiva dinámica, porque muchos aparecen en ejecución, no solo en revisiones estáticas. Además, pocos trabajos combinan detección y visualización. Para entender el problema, se realizó un mapeo sistemático sobre detección y visualización de antipatrones desde una perspectiva dinámica. Los resultados muestran que existen muchos métodos para detectar antipatrones en tiempo de ejecución. Por ejemplo:
+
+\begin{itemize}
+    \item El procesamiento de eventos complejos
+    \item El análisis de grafos y la revisión de logs o trazas
+\end{itemize}
+
+También existen herramientas para visualizar la arquitectura de un sistema de microservicios. Sin embargo, no se encontró una herramienta única que tenga ambas capacidades (detectar y visualizar), lo que comúnmente se hace es combinar herramientas de detección con herramientas de visualización. Los antipatrones más reportados y fáciles de representar mediante grafos de dependencias de servicios, son las dependencias cíclicas. La conclusión es que combinar detección en ejecución con visualización ayuda a identificar y corregir antipatrones, pero todavía no se ha logrado una solución robusta que haga ambas cosas.
+
+\textbf{Dato concreto:} La Tabla 2, de la página 6 muestra que las dependencias cíclicas son el antipatrón más frecuentemente detectado y visualizado.
+
+\textbf{Nota personal:} Esta fuente me ayuda a comprender que la detección y la visualización son dos actividades distintas. La usaré en TA-IND-01, en la sección de ``observabilidad y análisis dinámico'', para justificar la importancia de seguir el recorrido de una petición (las trazas distribuidas) y ver cómo se conectan los servicios (visualización de dependencias).
+
+% ============================================================
+\section*{FUENTE 5: ARCHITECTURE MIGRATION FROM MONOLITHIC TO MICROSERVICES: DEVELOPING READINESS CRITERIA}
+
+\textbf{Referencia IEEE:} \fullcite{habib2024architecture}
+
+Este artículo trata sobre la dificultad de decidir y ejecutar la migración de una arquitectura monolítica a microservicios, ya que muchas organizaciones migran por seguir las tendencias, sin una comprensión real y topándose con problemas de planificación, infraestructura, descomposición de servicios, gestión de datos, seguridad y monitoreo. El estudio busca desarrollar criterios de preparación que ayuden a evaluar si una organización está lista antes de comenzar a realizar el cambio. Los resultados muestran que deben considerarse factores organizacionales, humanos, tecnológicos y del entorno. Algunos de los criterios que se destacan son el compromiso de los líderes, la capacidad de los programadores, la satisfacción de los usuarios, la calidad de la información y la seguridad. En conclusión, el documento es una guía para que las organizaciones tomen mejores decisiones, reduzcan riesgos y no migren solo por moda.
+
+\textbf{Dato concreto:} En la sección IV, numeral D, el ANP reporta que los criterios que más influyen son:
+
+\begin{itemize}
+    \item Organizacionales con un 0,33
+    \item Humano con un 0,28
+    \item Entorno con un 0,20
+    \item Tecnológico con un 0,17
+\end{itemize}
+
+Además, la Tabla 13 de la página 14 registra un puntaje total de 64,23 para el caso BOS.
+
+\textbf{Nota personal:} Esta fuente me permite entender que la migración a una arquitectura de microservicios debe evaluarse con criterios humanos, organizacionales, de ambiente y técnicos, no solo por tendencias o modas. La usaré en el apartado de ``Análisis de Viabilidad'' del TA-IND-01 para ver si realmente si los proyectos cuentan con compromiso, capacidades necesarias, usuarios satisfechos y condiciones técnicas adecuadas antes de pasar a microservicios.
+
+% ============================================================
+\section*{Declaración de la IA}
+
+Durante la elaboración de este trabajo, se uso la IA con el propósito de corregir la ortografía, la gramática y dar formato de los documentos. El contenido de los resumenes fue hecho manualmente.
+
+% ============================================================
+\printbibliography
+
+\end{document}
